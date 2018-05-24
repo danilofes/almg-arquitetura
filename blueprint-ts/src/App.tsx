@@ -1,22 +1,39 @@
 import * as React from 'react';
-import './App.css';
 
-import logo from './logo.svg';
+import logo from './marca-almg.svg';
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <div>
+        <AlmgMenu />
+        <AlmgConteudo />
       </div>
     );
   }
 }
+
+const AlmgMenu = () => (
+  <div className="almg-menu">
+    <div>
+      <img src={logo} alt="ALMG" className="almg-logo" />
+    </div>
+  </div>
+);
+
+const AlmgConteudo = () => (
+  <div className="almg-conteudo">
+    <AlmgBarraTitulo />
+    <div className="interno">
+      Conteúdo
+    </div>
+  </div>
+);
+
+const AlmgBarraTitulo = () => (
+  <div className="almg-barra-titulo">
+    Título
+  </div>
+);
 
 export default App;
