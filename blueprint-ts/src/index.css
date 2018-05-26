@@ -3,7 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-
-.almg-menu img {
+html, body, #root, .almg-app {
+  height: 100%;
+}
+.almg-app {
+  display: flex;
+}
+.almg-menu {
   width: 300px;
+}
+.almg-menu img {
+  width: 100%;
+}
+.almg-menu a.ativo {
+  font-weight: bold;
+}
+.almg-conteudo {
+  flex: 1;
 }

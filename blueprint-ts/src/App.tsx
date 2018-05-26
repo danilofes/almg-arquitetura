@@ -8,9 +8,9 @@ class App extends React.Component {
   public render() {
     return (
       <BrowserRouter>
-        <div>
+        <div className="almg-app">
           <AlmgMenu>
-            <NavLink to='/' activeClassName='ativo'>Home</NavLink>
+            <NavLink exact to='/' activeClassName='ativo'>Home</NavLink>
             <NavLink to='/eventos' activeClassName='ativo'>Meus eventos</NavLink>
           </AlmgMenu>
           <AlmgConteudo>
