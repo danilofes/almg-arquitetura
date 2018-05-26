@@ -1,30 +1,52 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
+import { Spinner } from "@blueprintjs/core";
 
+export function tela<T, U>(WrappedComponent: React.ComponentType<U>, fetchFn: (params: T) => Promise<U>) {
+  return class extends React.Component<RouteComponentProps<T>, { loading: boolean, dto?: U }> {
 
-export class Tela<T> extends React.Component<RouteComponentProps<T>> {
+    constructor(props: RouteComponentProps<T>) {
+      super(props);
+      this.state = {
+        loading: true,
+        dto: undefined
+      };
+    }
 
-  public componentDidMount() {
-    //
-    // console.log("componentDidMount");
-    // console.log(JSON.stringify(this.props.match));
-  }
+    public componentDidMount() {
+      fetchFn(this.props.match.params)
+        .then(dto => this.setState({
+          loading: false,
+          dto: dto
+        }));
+      //
+      // console.log("componentDidMount");
+      // console.log(JSON.stringify(this.props.match));
+    }
 
-  public componentWillUnmount() {
-    //
-  }
+    public componentWillUnmount() {
+      //
+    }
 
-  public componentDidUpdate(prevProps: RouteComponentProps<T>) {
-    //
-    // console.log("componentDidUpdate");
-    // console.log(JSON.stringify(this.props.match));
-  }
+    public componentDidUpdate(prevProps: RouteComponentProps<T>) {
+      //
+      // console.log("componentDidUpdate");
+      // console.log(JSON.stringify(this.props.match));
+    }
 
-  public render() {
-    return <div />
-  }
-}
-
-export function tela<T, U>(comp: React.Component<U>): React.Component<RouteComponentProps<T>> {
-  return Tela;
+    public render() {
+      if (this.state.dto) {
+        if (this.state.loading) {
+          return <div>
+            <Spinner />
+            <WrappedComponent {...this.state.dto!} />
+          </div>;
+        } else {
+          return <WrappedComponent {...this.state.dto!} />
+        }
+      } else {
+        return <Spinner />;
+      }
+    }
+  };
 }

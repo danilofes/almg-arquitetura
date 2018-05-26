@@ -25,5 +25,5 @@ export interface EventoDto {
 }
 
 function delayed<T>(valor: T): Promise<T> {
-  return new Promise(resolve => setTimeout(() => resolve(valor), 2000));
+  return new Promise(resolve => setTimeout(() => resolve(valor), 1000));
 }

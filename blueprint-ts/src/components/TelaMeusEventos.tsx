@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Tela } from "./Tela";
+import { tela } from "./Tela";
+import { eventos } from "../backend";
 
-export class TelaMeusEventos extends Tela<void> {
-  render() {
-    return <div>MeusEventos</div>
-  }
-}
+export const MeusEventos = () => (
+  <div>MeusEventos</div>
+);
+
+export const TelaMeusEventos = tela(MeusEventos, () => eventos.busca());
