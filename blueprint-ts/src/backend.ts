@@ -2,7 +2,7 @@
 
 export const eventos = {
   busca: () => {
-    return delayed<MeusEventosDto>({
+    return delayed<DtoMeusEventos>({
       eventos: [
         { codigo: 1, nome: "Audiência pública da comissão de Saúde" },
         { codigo: 2, nome: "A vaquinha LeLê" }
@@ -11,15 +11,15 @@ export const eventos = {
   },
 
   obtem: (codigo: number) => {
-    return delayed<EventoDto>({ codigo: 1, nome: "Audiência pública da comissão de Saúde" });
+    return delayed<DtoEvento>({ codigo: 1, nome: "Audiência pública da comissão de Saúde" });
   }
 };
 
-export interface MeusEventosDto {
-  eventos: EventoDto[];
+export interface DtoMeusEventos {
+  eventos: DtoEvento[];
 }
 
-export interface EventoDto {
+export interface DtoEvento {
   codigo: number,
   nome: string
 }

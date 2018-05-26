@@ -1,5 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, NavLink, Route, Switch } from "react-router-dom";
+import { TelaDetalhesEvento } from "./components/TelaDetalhesEvento";
 import { TelaMeusEventos } from "./components/TelaMeusEventos";
 import logo from "./marca-almg.svg";
 
@@ -17,7 +18,8 @@ class App extends React.Component {
           <AlmgConteudo>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route path='/eventos' component={TelaMeusEventos} />
+              <Route exact path='/eventos' component={TelaMeusEventos} />
+              <Route exact path="/eventos/:codigoEvento" component={TelaDetalhesEvento} />
             </Switch>
           </AlmgConteudo>
         </div>
@@ -51,12 +53,6 @@ const AlmgBarraTitulo = () => (
 const Home = () => (
   <div>
     Home
-  </div>
-);
-
-const MeusEventos = () => (
-  <div>
-    Meus Eventos
   </div>
 );
 
