@@ -1,8 +1,9 @@
 import * as React from "react";
-
+import { BrowserRouter, NavLink, Route, Switch } from "react-router-dom";
+import { TelaMeusEventos } from "./components/TelaMeusEventos";
 import logo from "./marca-almg.svg";
 
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+
 
 class App extends React.Component {
   public render() {
@@ -16,7 +17,7 @@ class App extends React.Component {
           <AlmgConteudo>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route path='/eventos' component={MeusEventos} />
+              <Route path='/eventos' component={TelaMeusEventos} />
             </Switch>
           </AlmgConteudo>
         </div>
@@ -44,7 +45,7 @@ const AlmgConteudo: React.StatelessComponent<{}> = ({ children }) => (
 );
 
 const AlmgBarraTitulo = () => (
-  <div className="almg-barra-titulo"></div>
+  <div className="almg-barra-titulo" />
 );
 
 const Home = () => (
