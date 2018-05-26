@@ -15,4 +15,13 @@ export const DetalhesEvento: React.StatelessComponent<DtoEvento> = evento => (
   </div>
 );
 
-export const TelaDetalhesEvento = tela(DetalhesEvento, ({ codigoEvento }) => eventos.obtem(codigoEvento));
+interface Params {
+  codigoEvento: number
+}
+
+export const TelaDetalhesEvento = tela<Params, DtoEvento>({
+  url: "/eventos/:codigoEvento",
+  render: DetalhesEvento,
+  fetch: ({ codigoEvento }) => eventos.obtem(codigoEvento),
+  link: ({ codigoEvento }) => `/eventos/${codigoEvento}`
+});

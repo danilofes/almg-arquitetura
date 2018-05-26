@@ -13,13 +13,13 @@ class App extends React.Component {
         <div className="almg-app">
           <AlmgMenu>
             <NavLink exact to='/' activeClassName='ativo'>Home</NavLink>
-            <NavLink to='/eventos' activeClassName='ativo'>Meus eventos</NavLink>
+            <NavLink to={TelaMeusEventos.link({})} activeClassName='ativo'>Meus eventos</NavLink>
           </AlmgMenu>
           <AlmgConteudo>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/eventos' component={TelaMeusEventos} />
-              <Route exact path="/eventos/:codigoEvento" component={TelaDetalhesEvento} />
+              {TelaMeusEventos.rota}
+              {TelaDetalhesEvento.rota}
             </Switch>
           </AlmgConteudo>
         </div>

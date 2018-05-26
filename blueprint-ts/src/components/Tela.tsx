@@ -1,8 +1,21 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { Spinner } from "@blueprintjs/core";
+import { BrowserRouter, NavLink, Route, Switch } from "react-router-dom";
 
-export function tela<T, U>(WrappedComponent: React.ComponentType<U>, fetchFn: (params: T) => Promise<U>) {
+export function tela<T, U>(params: {
+  render: React.ComponentType<U>,
+  url: string,
+  link: (params: T) => string,
+  fetch: (params: T) => Promise<U>
+}) {
+  return {
+    rota: <Route exact path={params.url} component={componente(params.render, params.fetch)} />,
+    link: params.link
+  }
+}
+
+function componente<T, U>(WrappedComponent: React.ComponentType<U>, fetchFn: (params: T) => Promise<U>) {
   return class extends React.Component<RouteComponentProps<T>, { loading: boolean, dto?: U }> {
 
     constructor(props: RouteComponentProps<T>) {

@@ -1,17 +1,18 @@
 
+const dadosEventos = [
+  { codigo: 1, nome: "Audiência pública da comissão de Saúde" },
+  { codigo: 2, nome: "A vaquinha LeLê" }
+];
 
 export const eventos = {
   busca: () => {
     return delayed<DtoMeusEventos>({
-      eventos: [
-        { codigo: 1, nome: "Audiência pública da comissão de Saúde" },
-        { codigo: 2, nome: "A vaquinha LeLê" }
-      ]
+      eventos: dadosEventos
     });
   },
 
   obtem: (codigo: number) => {
-    return delayed<DtoEvento>({ codigo: 1, nome: "Audiência pública da comissão de Saúde" });
+    return delayed<DtoEvento>(dadosEventos[codigo - 1]);
   }
 };
 
