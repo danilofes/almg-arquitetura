@@ -1,7 +1,6 @@
-import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { Spinner } from "@blueprintjs/core";
-import { BrowserRouter, NavLink, Route, Switch } from "react-router-dom";
+import * as React from "react";
+import { Route, RouteComponentProps } from "react-router-dom";
 
 export function tela<T, U>(params: {
   render: React.ComponentType<U>,
@@ -48,18 +47,10 @@ function componente<T, U>(WrappedComponent: React.ComponentType<U>, fetchFn: (pa
     }
 
     public render() {
-      if (this.state.dto) {
-        if (this.state.loading) {
-          return <div>
-            <Spinner />
-            <WrappedComponent {...this.state.dto!} />
-          </div>;
-        } else {
-          return <WrappedComponent {...this.state.dto!} />
-        }
-      } else {
-        return <Spinner />;
-      }
+      return <div className="almg-loading-ct">
+        {this.state.loading ? <div className="almg-loading pt-elevation-2"><Spinner /></div> : null}
+        {this.state.dto ? <WrappedComponent {...this.state.dto} /> : null}
+      </div>;
     }
   };
 }
