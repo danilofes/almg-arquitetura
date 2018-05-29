@@ -17,10 +17,7 @@ export const DetalhesEvento: React.StatelessComponent<DtoEvento> = evento => (
   </div>
 );
 
-const mapPropsToPromise = (props: {codigoEvento: number}) => {
-  console.log(props.codigoEvento);
-  return eventos.obtem(props.codigoEvento);
-}
+const mapPropsToPromise = (props: {codigoEvento: number}) => eventos.obtem(props.codigoEvento);
 
 const DetalhesEventoWithLoading = withLoading(mapPropsToPromise, DetalhesEvento);
 
