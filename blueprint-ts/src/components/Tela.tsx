@@ -1,17 +1,28 @@
-import { Spinner } from "@blueprintjs/core";
+import * as H from 'history';
+import { parse } from "query-string";
 import * as React from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
-import { withLoading } from "./LoadingContainer";
 
-export function tela<T, U>(params: {
+
+interface TelaProps {
+  params: any,
+  history: H.History
+}
+
+export function tela<T>(params: {
   url: string,
-  component: React.ComponentType<U>,
-  link: (params: T) => string,
-  fetch: (params: T) => Promise<U>
+  render: (props: TelaProps) => React.ReactNode,
+  link: (params: T) => string
 }) {
-  let mapPropsToPromise = (props: RouteComponentProps<T>) => params.fetch(props.match.params);
   return {
-    rota: <Route exact path={params.url} component={withLoading(mapPropsToPromise, params.component)} />,
+    rota: <Route exact path={params.url} render={(props) => params.render(parseParams(props))} />,
     link: params.link
   }
+}
+
+function parseParams(props: RouteComponentProps<any>) {
+  return {
+    params: { ...props.match.params, ...parse(props.location.search) },
+    history: props.history
+  };
 }

@@ -1,13 +1,18 @@
 
 const dadosEventos = [
-  { codigo: 1, nome: "Audiência pública da comissão de Saúde" },
-  { codigo: 2, nome: "A vaquinha LeLê" }
+  { codigo: 1, nome: "Audiência pública da comissão de Saúde", finalizado: false },
+  { codigo: 2, nome: "A vaquinha LeLê", finalizado: false },
+  { codigo: 3, nome: "Reunião ordinária", finalizado: true }
 ];
 
+export interface FiltrosEventos {
+  exibirFinalizados: boolean
+}
+
 export const eventos = {
-  busca: () => {
+  busca: (filtros: FiltrosEventos = {exibirFinalizados: false}) => {
     return delayed<DtoMeusEventos>({
-      eventos: dadosEventos
+      eventos: dadosEventos.filter(e => !e.finalizado || filtros.exibirFinalizados)
     });
   },
 

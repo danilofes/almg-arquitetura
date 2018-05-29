@@ -9,27 +9,19 @@ export function withLoading<T, U>(mapPropsToPromise: (props: T) => Promise<U>, W
     constructor(props: T) {
       super(props);
       this.state = {
-        loading: true,
+        loading: false,
         wrappedProps: undefined
       };
     }
 
     public componentDidMount() {
-      mapPropsToPromise(this.props)
-        .then(wrappedProps => this.setState({
-          loading: false,
-          wrappedProps: wrappedProps
-        }));
-    }
-
-    public componentWillUnmount() {
-      //
+      this.fetchData();
     }
 
     public componentDidUpdate(prevProps: T) {
-      //
-      // console.log("componentDidUpdate");
-      // console.log(JSON.stringify(this.props.match));
+      if (this.props != prevProps) {
+        this.fetchData();
+      }
     }
 
     public render() {
@@ -37,6 +29,17 @@ export function withLoading<T, U>(mapPropsToPromise: (props: T) => Promise<U>, W
         {this.state.loading ? <div className="almg-loading pt-elevation-2"><Spinner /></div> : null}
         {this.state.wrappedProps ? <WrappedComponent {...this.state.wrappedProps} /> : null}
       </div>;
+    }
+
+    private fetchData() {
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+        mapPropsToPromise(this.props)
+          .then(wrappedProps => this.setState({
+            loading: false,
+            wrappedProps: wrappedProps
+          }));
+      }
     }
   };
 }

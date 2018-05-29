@@ -13,7 +13,7 @@ class App extends React.Component {
         <div className="almg-app">
           <AlmgMenu>
             <NavLink exact to='/' activeClassName='ativo'>Home</NavLink>
-            <NavLink to={TelaMeusEventos.link({})} activeClassName='ativo'>Meus eventos</NavLink>
+            <NavLink to={TelaMeusEventos.link({ exibirFinalizados: false })} activeClassName='ativo'>Meus eventos</NavLink>
           </AlmgMenu>
           <AlmgConteudo>
             <Switch>
