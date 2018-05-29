@@ -1,56 +1,17 @@
 import { Spinner } from "@blueprintjs/core";
 import * as React from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
+import { withLoading } from "./LoadingContainer";
 
 export function tela<T, U>(params: {
-  render: React.ComponentType<U>,
   url: string,
+  component: React.ComponentType<U>,
   link: (params: T) => string,
   fetch: (params: T) => Promise<U>
 }) {
+  let mapPropsToPromise = (props: RouteComponentProps<T>) => params.fetch(props.match.params);
   return {
-    rota: <Route exact path={params.url} component={componente(params.render, params.fetch)} />,
+    rota: <Route exact path={params.url} component={withLoading(mapPropsToPromise, params.component)} />,
     link: params.link
   }
-}
-
-function componente<T, U>(WrappedComponent: React.ComponentType<U>, fetchFn: (params: T) => Promise<U>) {
-  return class extends React.Component<RouteComponentProps<T>, { loading: boolean, dto?: U }> {
-
-    constructor(props: RouteComponentProps<T>) {
-      super(props);
-      this.state = {
-        loading: true,
-        dto: undefined
-      };
-    }
-
-    public componentDidMount() {
-      fetchFn(this.props.match.params)
-        .then(dto => this.setState({
-          loading: false,
-          dto: dto
-        }));
-      //
-      // console.log("componentDidMount");
-      // console.log(JSON.stringify(this.props.match));
-    }
-
-    public componentWillUnmount() {
-      //
-    }
-
-    public componentDidUpdate(prevProps: RouteComponentProps<T>) {
-      //
-      // console.log("componentDidUpdate");
-      // console.log(JSON.stringify(this.props.match));
-    }
-
-    public render() {
-      return <div className="almg-loading-ct">
-        {this.state.loading ? <div className="almg-loading pt-elevation-2"><Spinner /></div> : null}
-        {this.state.dto ? <WrappedComponent {...this.state.dto} /> : null}
-      </div>;
-    }
-  };
 }

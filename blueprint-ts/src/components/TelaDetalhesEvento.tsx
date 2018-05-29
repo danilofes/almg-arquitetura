@@ -21,7 +21,7 @@ interface Params {
 
 export const TelaDetalhesEvento = tela<Params, DtoEvento>({
   url: "/eventos/:codigoEvento",
-  render: DetalhesEvento,
+  component: DetalhesEvento,
   fetch: ({ codigoEvento }) => eventos.obtem(codigoEvento),
   link: ({ codigoEvento }) => `/eventos/${codigoEvento}`
 });

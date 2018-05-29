@@ -1,0 +1,13 @@
+.almg-loading-ct {
+  position: relative;
+}
+.almg-loading {
+  position: absolute;
+  top: 20px;
+  left: calc(50% - 35px);
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  border-radius: 35px;
+  background-color: #f5f5f5;
+}

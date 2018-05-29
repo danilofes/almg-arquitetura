@@ -16,7 +16,7 @@ const MeusEventos: React.StatelessComponent<DtoMeusEventos> = dto => (
 
 export const TelaMeusEventos = tela({
   url: "/eventos",
-  render: MeusEventos,
+  component: MeusEventos,
   fetch: () => eventos.busca(),
   link: () => "/eventos"
 });
