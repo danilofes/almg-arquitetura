@@ -17,7 +17,7 @@ export const DetalhesEvento: React.StatelessComponent<DtoEvento> = evento => (
   </div>
 );
 
-const mapPropsToPromise = (props: {codigoEvento: number}) => {
+const mapPropsToPromise = (props: { codigoEvento: number }) => {
   console.log(props.codigoEvento);
   return eventos.obtem(props.codigoEvento);
 }
@@ -31,5 +31,5 @@ interface DetalhesEventoParams {
 export const TelaDetalhesEvento = tela<DetalhesEventoParams>({
   url: "/eventos/:codigoEvento",
   render: (props) => <DetalhesEventoWithLoading codigoEvento={props.params.codigoEvento} />,
-  link: ({ codigoEvento }) => `/eventos/${codigoEvento}`
+  link: ({ codigoEvento }) => ({ pathname: `/eventos/${codigoEvento}` })
 });
