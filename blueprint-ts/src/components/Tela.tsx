@@ -12,7 +12,7 @@ interface TelaProps {
 export function tela<T>(params: {
   url: string,
   render: (props: TelaProps) => React.ReactNode,
-  link: (params: T) => string
+  link: (params: T) => H.LocationDescriptorObject
 }) {
   return {
     rota: <Route exact path={params.url} render={(props) => params.render(parseParams(props))} />,

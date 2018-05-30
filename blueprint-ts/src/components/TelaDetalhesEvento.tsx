@@ -28,5 +28,5 @@ interface DetalhesEventoParams {
 export const TelaDetalhesEvento = tela<DetalhesEventoParams>({
   url: "/eventos/:codigoEvento",
   render: (props) => <DetalhesEventoWithLoading codigoEvento={props.params.codigoEvento} />,
-  link: ({ codigoEvento }) => `/eventos/${codigoEvento}`
+  link: ({ codigoEvento }) => ({ pathname: `/eventos/${codigoEvento}` })
 });

@@ -14,6 +14,9 @@ const MeusEventos: React.StatelessComponent<FiltrosEventos & { history: H.Histor
     history.push(TelaMeusEventos.link({ exibirFinalizados: event.currentTarget.checked }))
 
   return <div>
+    <ul className="pt-breadcrumbs">
+      <li><span className="pt-breadcrumb pt-breadcrumb-current">Meus eventos</span></li>
+    </ul>
     <div>
       <Switch checked={props.exibirFinalizados} label="Exibir finalizados" onChange={onChangeExibirFinalizados} />
     </div>
@@ -36,5 +39,8 @@ const ListaEventosWithLoading = withLoading<FiltrosEventos, DtoMeusEventos>((fil
 export const TelaMeusEventos = tela<FiltrosEventos>({
   url: "/eventos",
   render: (props) => <MeusEventos exibirFinalizados={props.params.exibirFinalizados == 'true'} history={props.history} />,
-  link: (filtros) => `/eventos?exibirFinalizados=${filtros.exibirFinalizados}`
+  link: (filtros) => ({
+    pathname: "/eventos",
+    search: `?exibirFinalizados=${filtros.exibirFinalizados}`
+  })
 });

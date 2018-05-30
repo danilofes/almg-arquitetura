@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f8fa;
 }
 html, body, #root, .almg-app {
   height: 100%;
@@ -10,14 +11,44 @@ html, body, #root, .almg-app {
   display: flex;
 }
 .almg-menu {
-  width: 300px;
+  width: 240px;
+  background-color: #fff;
 }
-.almg-menu img {
+.almg-menu h1 {
+  font-size: 20px;
+  color: #231f20;
+  text-align: center;
+  line-height: normal;
+  margin: 0;
+  font-weight: bold;
+}
+.almg-logo {
+  border-bottom: 1px solid #ddd;
+}
+.almg-logo img {
   width: 100%;
 }
-.almg-menu a.ativo {
+.almg-menu a {
+  display: block;
+  padding: 10px 12px;
   font-weight: bold;
+  color: #231f20;
+  text-decoration: none;
+}
+.almg-menu a.ativo {
+  border-right: 4px solid #c62026;
+  padding-right: 8px;
+  color: #c62026;
+}
+.almg-menu a.ativo, .almg-menu a:hover {
+  background-color: #ffefef;
 }
 .almg-conteudo {
   flex: 1;
+}
+.padding {
+  padding: 6px;
+}
+.margin {
+  margin: 12px;
 }
