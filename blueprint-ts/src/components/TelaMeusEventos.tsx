@@ -8,7 +8,7 @@ import { tela } from "./Tela";
 import { TelaDetalhesEvento } from "./TelaDetalhesEvento";
 
 
-const MeusEventos: React.StatelessComponent<FiltrosEventos & { history: H.History }> = props => {
+const MeusEventos: React.SFC<FiltrosEventos & { history: H.History }> = props => {
   const history = props.history;
   const onChangeExibirFinalizados = (event: React.FormEvent<HTMLInputElement>) =>
     history.push(TelaMeusEventos.link({ exibirFinalizados: event.currentTarget.checked }))
@@ -24,7 +24,7 @@ const MeusEventos: React.StatelessComponent<FiltrosEventos & { history: H.Histor
   </div>
 };
 
-const ListaEventos: React.StatelessComponent<DtoMeusEventos> = props => (
+const ListaEventos: React.SFC<DtoMeusEventos> = props => (
   <div>
     {props.eventos.map(evento => (
       <div key={evento.codigo}>

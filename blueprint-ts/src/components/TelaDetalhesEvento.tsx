@@ -4,7 +4,7 @@ import { tela } from "./Tela";
 import { withLoading } from "./LoadingContainer";
 import { Link, RouteComponentProps } from "react-router-dom";
 
-export const DetalhesEvento: React.StatelessComponent<DtoEvento> = evento => (
+export const DetalhesEvento: React.SFC<DtoEvento> = evento => (
   <div>
     <div>
       <div>Código</div>

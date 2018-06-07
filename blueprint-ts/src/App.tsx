@@ -19,8 +19,8 @@ class App extends React.Component {
           <AlmgConteudo>
             <Switch>
               <Route exact path='/' component={Home} />
-              {TelaMeusEventos.rota}
-              {TelaDetalhesEvento.rota}
+              <TelaMeusEventos.Rota />
+              <TelaDetalhesEvento.Rota />
             </Switch>
           </AlmgConteudo>
         </AlmgApp>
@@ -29,13 +29,13 @@ class App extends React.Component {
   }
 }
 
-const AlmgApp: React.StatelessComponent<{}> = ({ children }) => (
+const AlmgApp: React.SFC<{}> = ({ children }) => (
   <div className="almg-app">
     {children}
   </div>
 );
 
-const AlmgMenu: React.StatelessComponent<{}> = ({ children }) => (
+const AlmgMenu: React.SFC<{}> = ({ children }) => (
   <div className="almg-menu pt-elevation-3">
     <div className="almg-logo padding">
       <div className="padding"><img src={logo} alt="ALMG" /></div>
@@ -45,11 +45,11 @@ const AlmgMenu: React.StatelessComponent<{}> = ({ children }) => (
   </div>
 );
 
-const AlmgMenuItem: React.StatelessComponent<{ to: H.LocationDescriptor, label: string }> = props => (
+const AlmgMenuItem: React.SFC<{ to: H.LocationDescriptor, label: string }> = props => (
   <NavLink exact to={props.to} activeClassName='ativo'>{props.label}</NavLink>
 );
 
-const AlmgConteudo: React.StatelessComponent<{}> = ({ children }) => (
+const AlmgConteudo: React.SFC<{}> = ({ children }) => (
   <div className="almg-conteudo">
     <div className="interno">{children}</div>
   </div>

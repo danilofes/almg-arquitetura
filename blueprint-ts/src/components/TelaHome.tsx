@@ -1,7 +1,7 @@
 import * as React from "react";
 import { tela } from "./Tela";
 
-const Home: React.StatelessComponent<{}> = () => (
+const Home: React.SFC<{}> = () => (
   <div>Home</div>
 );
 

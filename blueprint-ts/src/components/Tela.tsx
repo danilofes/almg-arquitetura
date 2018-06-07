@@ -14,8 +14,11 @@ export function tela<T>(params: {
   render: (props: TelaProps) => React.ReactNode,
   link: (params: T) => H.LocationDescriptorObject
 }) {
+
+  const rota: React.SFC<{}> = () => <Route exact path={params.url} render={(props) => params.render(parseParams(props))} />
+
   return {
-    rota: <Route exact path={params.url} render={(props) => params.render(parseParams(props))} />,
+    Rota: rota,
     link: params.link
   }
 }
