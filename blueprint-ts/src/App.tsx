@@ -6,6 +6,7 @@ import { TelaHome } from "./components/TelaHome";
 import { TelaMeusEventos } from "./components/TelaMeusEventos";
 import { TelaNovoEvento } from './components/TelaNovoEvento';
 import logo from "./marca-almg.svg";
+import { rotas } from "./components/Tela";
 
 
 class App extends React.Component {
@@ -14,12 +15,12 @@ class App extends React.Component {
       <BrowserRouter>
         <AlmgApp>
           <AlmgMenu>
-            <AlmgMenuItem to={TelaHome.link({})} label="Home" />
+            <AlmgMenuItem to={TelaHome.link} label="Home" />
             <AlmgMenuItem to={TelaMeusEventos.link({ exibirFinalizados: false })} label="Meus eventos" />
           </AlmgMenu>
           <AlmgConteudo>
             <Switch>
-              {[TelaHome.rota, TelaNovoEvento.rota, TelaMeusEventos.rota, TelaDetalhesEvento.rota]}
+              {rotas}
             </Switch>
           </AlmgConteudo>
         </AlmgApp>

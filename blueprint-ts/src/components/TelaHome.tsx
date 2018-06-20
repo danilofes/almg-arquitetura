@@ -5,8 +5,7 @@ const Home: React.SFC<{}> = () => (
   <div>Home</div>
 );
 
-export const TelaHome = tela<{}>({
+export const TelaHome = tela({
   url: "/",
-  render: (props) => <Home />,
-  link: () => ({ pathname: "/" })
+  render: () => <Home />
 });

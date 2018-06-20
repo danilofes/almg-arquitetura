@@ -9,17 +9,30 @@ interface TelaProps {
   history: H.History
 }
 
-export function tela<T>(params: {
+export const rotas: Array<React.ReactNode> = [];
+
+export function telaComParametros<T>(params: {
   url: string,
   render: (props: TelaProps) => React.ReactNode,
   link: (params: T) => H.LocationDescriptorObject
 }) {
 
-  const rota = <Route exact={true} path={params.url} render={(props) => params.render(parseParams(props))} />
+  rotas.push(<Route exact={true} path={params.url} render={(props) => params.render(parseParams(props))} />);
 
   return {
-    rota: rota,
     link: params.link
+  }
+}
+
+export function tela(params: {
+  url: string,
+  render: () => React.ReactNode
+}) {
+
+  rotas.push(<Route exact={true} path={params.url} render={() => params.render()} />);
+
+  return {
+    link: { pathname: params.url }
   }
 }
 

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { DtoMeusEventos, FiltrosEventos, eventos } from "../backend";
 import { withLoading } from "./LoadingContainer";
-import { tela } from "./Tela";
+import { telaComParametros } from "./Tela";
 import { TelaDetalhesEvento } from "./TelaDetalhesEvento";
 
 
@@ -36,7 +36,7 @@ const ListaEventos: React.SFC<DtoMeusEventos> = props => (
 
 const ListaEventosWithLoading = withLoading<FiltrosEventos, DtoMeusEventos>((filtros) => eventos.busca(filtros), ListaEventos);
 
-export const TelaMeusEventos = tela<FiltrosEventos>({
+export const TelaMeusEventos = telaComParametros<FiltrosEventos>({
   url: "/eventos",
   render: (props) => <MeusEventos exibirFinalizados={props.params.exibirFinalizados === 'true'} history={props.history} />,
   link: (filtros) => ({

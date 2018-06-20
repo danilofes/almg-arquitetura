@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DtoEvento, eventos } from "../backend";
 import { withLoading } from "./LoadingContainer";
-import { tela } from "./Tela";
+import { telaComParametros } from "./Tela";
 
 export const DetalhesEvento: React.SFC<DtoEvento> = evento => (
   <div>
@@ -24,7 +24,7 @@ interface DetalhesEventoParams {
   codigoEvento: number
 }
 
-export const TelaDetalhesEvento = tela<DetalhesEventoParams>({
+export const TelaDetalhesEvento = telaComParametros<DetalhesEventoParams>({
   url: "/eventos/:codigoEvento",
   render: (props) => <DetalhesEventoWithLoading codigoEvento={props.params.codigoEvento} />,
   link: ({ codigoEvento }) => ({ pathname: `/eventos/${codigoEvento}` })
