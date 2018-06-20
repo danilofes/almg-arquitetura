@@ -38,7 +38,7 @@ const ListaEventosWithLoading = withLoading<FiltrosEventos, DtoMeusEventos>((fil
 
 export const TelaMeusEventos = tela<FiltrosEventos>({
   url: "/eventos",
-  render: (props) => <MeusEventos exibirFinalizados={props.params.exibirFinalizados == 'true'} history={props.history} />,
+  render: (props) => <MeusEventos exibirFinalizados={props.params.exibirFinalizados === 'true'} history={props.history} />,
   link: (filtros) => ({
     pathname: "/eventos",
     search: `?exibirFinalizados=${filtros.exibirFinalizados}`

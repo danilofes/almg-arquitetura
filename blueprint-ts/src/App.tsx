@@ -1,9 +1,10 @@
 import * as H from 'history';
 import * as React from "react";
-import { BrowserRouter, NavLink, Route, Switch } from "react-router-dom";
+import { BrowserRouter, NavLink, Switch, Route } from "react-router-dom";
 import { TelaDetalhesEvento } from "./components/TelaDetalhesEvento";
 import { TelaHome } from "./components/TelaHome";
 import { TelaMeusEventos } from "./components/TelaMeusEventos";
+import { TelaNovoEvento } from './components/TelaNovoEvento';
 import logo from "./marca-almg.svg";
 
 
@@ -18,9 +19,7 @@ class App extends React.Component {
           </AlmgMenu>
           <AlmgConteudo>
             <Switch>
-              <Route exact path='/' component={Home} />
-              <TelaMeusEventos.Rota />
-              <TelaDetalhesEvento.Rota />
+              {[TelaHome.rota, TelaNovoEvento.rota, TelaMeusEventos.rota, TelaDetalhesEvento.rota]}
             </Switch>
           </AlmgConteudo>
         </AlmgApp>
@@ -28,6 +27,7 @@ class App extends React.Component {
     );
   }
 }
+
 
 const AlmgApp: React.SFC<{}> = ({ children }) => (
   <div className="almg-app">
@@ -46,7 +46,7 @@ const AlmgMenu: React.SFC<{}> = ({ children }) => (
 );
 
 const AlmgMenuItem: React.SFC<{ to: H.LocationDescriptor, label: string }> = props => (
-  <NavLink exact to={props.to} activeClassName='ativo'>{props.label}</NavLink>
+  <NavLink exact={true} to={props.to} activeClassName='ativo'>{props.label}</NavLink>
 );
 
 const AlmgConteudo: React.SFC<{}> = ({ children }) => (

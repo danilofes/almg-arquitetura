@@ -1,8 +1,7 @@
 import * as React from "react";
 import { DtoEvento, eventos } from "../backend";
-import { tela } from "./Tela";
 import { withLoading } from "./LoadingContainer";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { tela } from "./Tela";
 
 export const DetalhesEvento: React.SFC<DtoEvento> = evento => (
   <div>

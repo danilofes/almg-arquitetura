@@ -19,7 +19,7 @@ export function withLoading<T, U>(mapPropsToPromise: (props: T) => Promise<U>, W
     }
 
     public componentDidUpdate(prevProps: T) {
-      if (this.props != prevProps) {
+      if (this.props !== prevProps) {
         this.fetchData();
       }
     }
@@ -37,7 +37,7 @@ export function withLoading<T, U>(mapPropsToPromise: (props: T) => Promise<U>, W
         mapPropsToPromise(this.props)
           .then(wrappedProps => this.setState({
             loading: false,
-            wrappedProps: wrappedProps
+            wrappedProps
           }));
       }
     }
