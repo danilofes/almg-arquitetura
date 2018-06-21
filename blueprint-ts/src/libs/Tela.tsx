@@ -45,35 +45,50 @@ function parseParams(props: RouteComponentProps<any>) {
   };
 }
 
-class PathSpec<T = {}> {
+class UrlPattern<T = {}> {
   
   pathParts: UrlPart[] = [];
   queryParts: UrlPart[] = [];
 
-  link = (params: T) => ({
+  toLocation = (params: T) => ({
     pathname: '/' + this.pathParts.map(p => p.toUrl(params)).join('/'),
     search: '?' + this.queryParts.map(p => p.toUrl(params)).join('&')
   });
 
-  s(part: string): PathSpec<T> {
+  part(part: string): UrlPattern<T> {
     this.pathParts.push(new StaticUrlPart(part));
     return this;
   }
 
-  num<K extends string>(identifier: K): PathSpec<T & Wrapped<K, number>> {
-    this.pathParts.push(new NumericUrlPart(identifier));
+  varNum<K extends string>(identifier: K): UrlPattern<T & WithProp<K, number>> {
+    this.pathParts.push(new DynamicUrlPart(identifier, numberParser));
     return this;
   }
 
-  str<K extends string>(identifier: K): PathSpec<T & Wrapped<K, string>> {
-    this.pathParts.push(new StringUrlPart(identifier));
+  varStr<K extends string>(identifier: K): UrlPattern<T & WithProp<K, string>> {
+    this.pathParts.push(new DynamicUrlPart(identifier, stringParser));
     return this;
   }
 }
 
-type Wrapped<K extends string, V> = {
+type WithProp<K extends string, V> = {
   [P in K]: V;
 };
+
+interface ParamParser<T> {
+  toString: (value: T) => string,
+  fromString: (value: string) => T
+}
+
+const numberParser: ParamParser<number> = {
+  toString: (value: number) => String(value),
+  fromString: (value: string) => Number(value)
+}
+
+const stringParser: ParamParser<string> = {
+  toString: (value: string) => value,
+  fromString: (value: string) => value
+}
 
 interface UrlPart {
   toUrl(params: any): string;
@@ -86,26 +101,18 @@ class StaticUrlPart implements UrlPart {
   convert() {}
 }
 
-class NumericUrlPart implements UrlPart {
-  constructor(private identifier: string) {}
-  toUrl = (params: any) => String(params[this.identifier]);
+class DynamicUrlPart<T> implements UrlPart {
+  constructor(private identifier: string, private parser: ParamParser<T>) {}
+  toUrl = (params: any) => this.parser.toString(params[this.identifier]);
   convert(rawParams: any, params: any) {
-    params[this.identifier] = Number(rawParams[this.identifier]);
+    params[this.identifier] = this.parser.fromString(rawParams[this.identifier]);
   }
 }
 
-class StringUrlPart implements UrlPart {
-  constructor(private identifier: string) {}
-  toUrl = (params: any) => String(params[this.identifier]);
-  convert(rawParams: any, params: any) {
-    params[this.identifier] = String(rawParams[this.identifier]);
-  }
+function urlPattern() {
+  return new UrlPattern();
 }
 
-function path() {
-  return new PathSpec();
-}
+let url = urlPattern().part("eventos").varNum("codigoEvento");
 
-let x = path().s("eventos").num("codigoEvento").str("macaco");
-
-x.link({codigoEvento: 3, macaco: 'x'});
+url.toLocation({codigoEvento: 3});

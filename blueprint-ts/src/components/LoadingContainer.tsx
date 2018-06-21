@@ -33,12 +33,13 @@ export function withLoading<T, U>(mapPropsToPromise: (props: T) => Promise<U>, W
 
     private fetchData() {
       if (!this.state.loading) {
-        this.setState({ loading: true });
-        mapPropsToPromise(this.props)
-          .then(wrappedProps => this.setState({
-            loading: false,
-            wrappedProps
-          }));
+        this.setState({ loading: true }, () => {
+          mapPropsToPromise(this.props)
+            .then(wrappedProps => this.setState({
+              loading: false,
+              wrappedProps
+            }));
+        });
       }
     }
   };
