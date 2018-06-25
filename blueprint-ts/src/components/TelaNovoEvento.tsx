@@ -1,7 +1,8 @@
 import * as React from "react";
-import { tela } from "./Tela";
+import { views } from '../AppViews';
+import { urlPattern } from "../libs/UrlPattern";
 
-export const TelaNovoEvento = tela({
-  url: "/novo-evento",
-  render: () => <div>Novo evento</div>
-});
+export const TelaNovoEvento = views.view(
+  urlPattern().path("novo-evento"),
+  () => <div>Novo evento</div>
+);

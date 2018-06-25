@@ -1,15 +1,15 @@
 import { Switch } from "@blueprintjs/core";
-import * as H from 'history';
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { DtoMeusEventos, FiltrosEventos, eventos } from "../backend";
+import { history, views } from '../AppViews';
+import { DtoMeusEventos, eventos, FiltrosEventos } from "../backend";
+import { BOOL, urlPattern } from "../libs/UrlPattern";
 import { withLoading } from "./LoadingContainer";
-import { telaComParametros } from "./Tela";
 import { TelaDetalhesEvento } from "./TelaDetalhesEvento";
 
 
-const MeusEventos: React.SFC<FiltrosEventos & { history: H.History }> = props => {
-  const history = props.history;
+const MeusEventos: React.SFC<FiltrosEventos> = props => {
+  
   const onChangeExibirFinalizados = (event: React.FormEvent<HTMLInputElement>) =>
     history.push(TelaMeusEventos.link({ exibirFinalizados: event.currentTarget.checked }))
 
@@ -36,11 +36,7 @@ const ListaEventos: React.SFC<DtoMeusEventos> = props => (
 
 const ListaEventosWithLoading = withLoading<FiltrosEventos, DtoMeusEventos>((filtros) => eventos.busca(filtros), ListaEventos);
 
-export const TelaMeusEventos = telaComParametros<FiltrosEventos>({
-  url: "/eventos",
-  render: (props) => <MeusEventos exibirFinalizados={props.params.exibirFinalizados === 'true'} history={props.history} />,
-  link: (filtros) => ({
-    pathname: "/eventos",
-    search: `?exibirFinalizados=${filtros.exibirFinalizados}`
-  })
-});
+export const TelaMeusEventos = views.viewWithParams(
+  urlPattern().path("eventos").queryParam("exibirFinalizados", BOOL),
+  MeusEventos
+)

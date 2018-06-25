@@ -1,30 +1,28 @@
 import * as H from 'history';
 import * as React from "react";
-import { BrowserRouter, NavLink, Switch, Route } from "react-router-dom";
-import { TelaDetalhesEvento } from "./components/TelaDetalhesEvento";
+import { NavLink, Router, Switch } from "react-router-dom";
+import { history, views } from './AppViews';
 import { TelaHome } from "./components/TelaHome";
 import { TelaMeusEventos } from "./components/TelaMeusEventos";
-import { TelaNovoEvento } from './components/TelaNovoEvento';
 import logo from "./marca-almg.svg";
-import { rotas } from "./components/Tela";
 
 
 class App extends React.Component {
   public render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <AlmgApp>
           <AlmgMenu>
-            <AlmgMenuItem to={TelaHome.link} label="Home" />
+            <AlmgMenuItem to={TelaHome.link()} label="Home" />
             <AlmgMenuItem to={TelaMeusEventos.link({ exibirFinalizados: false })} label="Meus eventos" />
           </AlmgMenu>
           <AlmgConteudo>
             <Switch>
-              {rotas}
+              {views.routes}
             </Switch>
           </AlmgConteudo>
         </AlmgApp>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
